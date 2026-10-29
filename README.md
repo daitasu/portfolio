@@ -69,8 +69,8 @@ URL は次のとおり。
 | `/talks/<year>/<dir>/` | 詳細ページ（Astro） |
 | `/slides/<year>/<dir>/` | スライド本体（Slidev。詳細ページの iframe の中身） |
 
-プロフィールと職歴の Markdown は [daitasu/daitasu](https://github.com/daitasu/daitasu) の `README.md` / `resume.md` で管理し、ビルド時に取得する。
-このリポジトリでは編集しない。
+プロフィール（`/`）と職歴（`/resume/`）は `apps/portfolio/src/content/profile/` の `readme.md` / `resume.md` に書く。
+GitHub プロフィールの [daitasu/daitasu](https://github.com/daitasu/daitasu) とは独立していて、同期しない。
 
 ## 新しいトークを追加する
 
@@ -114,6 +114,6 @@ SpeakerDeck の登壇は `kind: "speakerdeck"` で `slug`（詳細ページの U
 
 ## デプロイ
 
-main への push、または daitasu/daitasu の更新通知（`repository_dispatch`）で `.github/workflows/deploy.yml` が Cloudflare Pages にデプロイする。
+main への push で `.github/workflows/deploy.yml` が Cloudflare Pages にデプロイする。
 仕組みの詳細は [apps/talks/docs/cloudflare-pages-deploy.md](apps/talks/docs/cloudflare-pages-deploy.md)、
 talks.daitasu.work からの移行手順は [docs/migration.md](docs/migration.md) を参照。

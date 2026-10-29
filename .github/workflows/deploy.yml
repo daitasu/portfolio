@@ -4,11 +4,8 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
-  # daitasu/daitasu の README.md / resume.md 更新時に再ビルドする（送信側は docs/migration.md 参照）
-  repository_dispatch:
-    types: [profile-updated]
 
-# push と daitasu/daitasu からの通知が重なっても、後発のビルド（新しい README を取得したもの）を残す
+# push が重なっても、後発のビルドを残す
 concurrency:
   group: deploy
   cancel-in-progress: true

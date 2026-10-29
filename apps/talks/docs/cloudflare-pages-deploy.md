@@ -129,6 +129,5 @@ hash モードなら `/slides/<year>/<slug>/` より後ろは全部クライア�
 
 - 必要な GitHub Secrets: `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`
 - `--project-name=daitasu-talks` は Cloudflare Pages のプロジェクト名と一致させる（変えたらここも直す）。
-- daitasu/daitasu から `repository_dispatch`（`profile-updated`）を受けても走る。送信側の設定は [docs/migration.md](../../../docs/migration.md) を参照。
 
 ローカルで `apps/portfolio/dist/` を確認するときは `just build` → `just start`。

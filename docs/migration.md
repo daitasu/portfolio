@@ -89,20 +89,8 @@ GitHub は旧名からのアクセスをリダイレクトするが、手元の 
 リポジトリの About にある Website も `https://portfolio.daitasu.work/` に変える。
 Cloudflare Pages のプロジェクト名（`daitasu-talks`）は GitHub のリポジトリ名と無関係なので、変えない。
 
-## 5. daitasu/daitasu の更新で再ビルドさせる
-
-プロフィールと職歴の Markdown はビルド時に取得するので、daitasu/daitasu を更新しただけでは反映されない。
-daitasu/daitasu 側から `repository_dispatch` を送って、このリポジトリのデプロイを起動する。
-
-1. Fine-grained personal access token を作る。
-   - Repository access: `daitasu/portfolio` のみ
-   - Permissions: Contents を Read and write（`repository_dispatch` の送信に必要）
-2. daitasu/daitasu の Settings → Secrets and variables → Actions に `PORTFOLIO_DISPATCH_TOKEN` として登録する。
-3. daitasu/daitasu の `.github/workflows/notify-portfolio.yml` が、`README.md` / `resume.md` を main に push したときに `profile-updated` を送る。
-
-確認: daitasu/daitasu の Actions で Notify portfolio を手動実行（Run workflow）し、このリポジトリの Actions で `repository_dispatch` 起動の Deploy が走ることを見る。
-
-## 6. 後片付け
+## 5. 後片付け
 
 - daitasu/daitasu の `README.md` / `resume.md` にある `talks.daitasu.work` へのリンクを `portfolio.daitasu.work/talks/` に書き換える（301 で辿れるが、リダイレクトを挟まない方がよい）。
+- プロフィールはこのリポジトリで管理するようになったので、daitasu/daitasu の `.github/workflows/notify-portfolio.yml` と Secret の `PORTFOLIO_DISPATCH_TOKEN` を消し、PAT も失効させる。
 - Google Search Console を使っているなら、`portfolio.daitasu.work` を登録して `sitemap-index.xml` を送信し、`talks.daitasu.work` にはアドレス変更ツールを使う。

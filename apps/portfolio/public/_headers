@@ -1,0 +1,9 @@
+# Cloudflare Pages のレスポンスヘッダー。https://developers.cloudflare.com/pages/configuration/headers/
+# Astro と Slidev がビルドごとにハッシュ付きの名前で吐くファイルは、中身が変われば URL も変わるので 1 年キャッシュする。
+# 同じヘッダーに複数のルールが当たると値がカンマで連結されるため、パスが重なるルールは足さない。
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/slides/:year/:dir/assets/*
+  Cache-Control: public, max-age=31536000, immutable

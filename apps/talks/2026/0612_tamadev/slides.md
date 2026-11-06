@@ -7,7 +7,7 @@ talk:
   date: "2026-06-12"
   event: "多摩.dev #3"
 layout: cover
-dino: /dino_cover_transparent.png
+dino: /dino_cover_transparent.webp
 ---
 
 # Semantic Version 単位で戦略を柔軟に変えて、パッケージアップデートを自動化する
@@ -125,7 +125,7 @@ layout: two-cols
 ---
 
 ::left::
-<img :src="$public('/capture_github.png')" class="mt-2 rounded-1" />
+<img :src="$public('/capture_github.webp')" class="mt-2 rounded-1" />
 
 ::right::
 

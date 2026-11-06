@@ -33,7 +33,7 @@ const talks = defineCollection({
       const publicDir = fileURLToPath(config.publicDir);
       const items = await resolveTalks(talkEntries, {
         decks: findDecks(fileURLToPath(new URL("../talks/", config.root))),
-        hasCoverImage: (slug) => existsSync(join(publicDir, "slides", slug, "og.png")),
+        hasSlideFile: (slug, fileName) => existsSync(join(publicDir, "slides", slug, fileName)),
         fetchSpeakerdeckEmbed,
         warn: (message) => logger.warn(message),
       });

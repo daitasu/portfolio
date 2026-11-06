@@ -34,6 +34,10 @@ const serveSlidesIndex = () => ({
 export default defineConfig({
   site: SITE_URL,
   trailingSlash: "always",
+  // CSS は全ページ共通で 6KB 程度なので、外部ファイルの往復を待たずに描画できるよう HTML に埋め込む
+  build: { inlineStylesheets: "always" },
+  // ホバー / フォーカスした時点で遷移先の HTML を取りに行き、ページ遷移の待ちを減らす
+  prefetch: { prefetchAll: true, defaultStrategy: "hover" },
   integrations: [sitemap({ filter: (page) => !draftTalkUrls.has(page) })],
   vite: { plugins: [serveSlidesIndex()] },
 });

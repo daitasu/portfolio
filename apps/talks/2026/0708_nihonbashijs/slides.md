@@ -11,7 +11,7 @@ fonts:
   mono: JetBrains Mono
   weights: "300,400,500,700"
 layout: cover
-dino: /dino_cover.png
+dino: /dino_cover.webp
 ---
 
 # Generative UI の逐次描画は<br>どうなっている？
@@ -87,7 +87,7 @@ layout: two-cols
 ::right::
 
 <div class="mt-8 flex justify-center">
-  <img :src="$public('/mcp_apps_color_picker.png')" class="rounded-lg" style="max-height: 20rem;" />
+  <img :src="$public('/mcp_apps_color_picker.webp')" class="rounded-lg" style="max-height: 20rem;" />
 </div>
 
 ---

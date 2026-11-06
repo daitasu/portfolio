@@ -55,12 +55,20 @@ body {
   font-family: var(--font-sans);
   color: var(--color-text);
   background-color: var(--color-bg);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* background-attachment: fixed はスクロールのたびに再描画させるので、固定配置の層に描いて合成だけで済ませる */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
   background-image:
     radial-gradient(760px 460px at 90% -14%, var(--glow-strong), transparent 62%),
     radial-gradient(620px 420px at -12% 40%, var(--glow-soft), transparent 60%);
   background-repeat: no-repeat;
-  background-attachment: fixed;
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 body::after {

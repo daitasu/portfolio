@@ -5,16 +5,31 @@ import type { TalkItem } from "../lib/talks.ts";
 
 type Props = {
   talk: TalkItem;
+  /** 初期表示で見えるカード。遅延読み込みをやめて LCP を早める。 */
+  priority?: boolean;
 };
 
-const { talk } = Astro.props;
+// 縦横比を伝えて読み込み前の領域を確保する。実寸ではなく 16:9 の比率として使う。
+const THUMBNAIL_WIDTH = 640;
+const THUMBNAIL_HEIGHT = 360;
+
+const { talk, priority = false } = Astro.props;
 ---
 
 <a class="card" href={toTalkPath(talk.slug)}>
   {talk.kind === "speakerdeck" && <span class="badge">Speakerdeck</span>}
   {
-    talk.image ? (
-      <img class="thumb" src={talk.image} alt="" loading="lazy" />
+    talk.thumbnail ? (
+      <img
+        class="thumb"
+        src={talk.thumbnail}
+        alt=""
+        width={THUMBNAIL_WIDTH}
+        height={THUMBNAIL_HEIGHT}
+        loading={priority ? "eager" : "lazy"}
+        fetchpriority={priority ? "high" : "auto"}
+        decoding="async"
+      />
     ) : (
       <div class="thumb thumb-ph">
         <span>{talk.title}</span>
@@ -68,6 +83,7 @@ const { talk } = Astro.props;
   .thumb {
     display: block;
     width: 100%;
+    height: auto;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     background: var(--color-thumb);

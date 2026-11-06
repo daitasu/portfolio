@@ -25,11 +25,12 @@ const EMBED = {
   title: "職種の壁を溶かして",
   playerUrl: "https://speakerdeck.com/player/abc123",
   image: "https://files.speakerdeck.com/presentations/abc123/slide_0.jpg",
+  thumbnail: "https://files.speakerdeck.com/presentations/abc123/preview_slide_0.jpg",
 };
 
 const createDeps = (overrides: Partial<ResolveTalksDeps> = {}): ResolveTalksDeps => ({
   decks: [DECK],
-  hasCoverImage: () => true,
+  hasSlideFile: () => true,
   fetchSpeakerdeckEmbed: vi.fn().mockResolvedValue(EMBED),
   warn: vi.fn(),
   ...overrides,
@@ -75,8 +76,26 @@ describe("resolveTalks", () => {
     });
 
     it("表紙画像が無ければ image を空にすること", async () => {
-      const deps = createDeps({ hasCoverImage: () => false });
+      const deps = createDeps({ hasSlideFile: () => false });
       expect((await resolveOne({ kind: "slidev", slug: DECK.slug }, deps))?.image).toBe("");
+    });
+
+    it("縮小画像があれば thumb.webp を thumbnail にすること", async () => {
+      expect((await resolveOne({ kind: "slidev", slug: DECK.slug }))?.thumbnail).toBe(
+        "/slides/2026/0708_nihonbashijs/thumb.webp",
+      );
+    });
+
+    it("縮小画像が無ければ og.png を thumbnail にすること", async () => {
+      const deps = createDeps({ hasSlideFile: (_slug, fileName) => fileName === "og.png" });
+      expect((await resolveOne({ kind: "slidev", slug: DECK.slug }, deps))?.thumbnail).toBe(
+        "/slides/2026/0708_nihonbashijs/og.png",
+      );
+    });
+
+    it("表紙画像も縮小画像も無ければ thumbnail を空にすること", async () => {
+      const deps = createDeps({ hasSlideFile: () => false });
+      expect((await resolveOne({ kind: "slidev", slug: DECK.slug }, deps))?.thumbnail).toBe("");
     });
 
     it("description が無ければ日付とイベント名から作ること", async () => {
@@ -115,6 +134,15 @@ describe("resolveTalks", () => {
 
     it("SpeakerDeck の URL を sourceUrl にすること", async () => {
       expect((await resolveOne(SPEAKERDECK_ENTRY))?.sourceUrl).toBe(SPEAKERDECK_ENTRY.url);
+    });
+
+    it("SpeakerDeck の縮小画像を thumbnail にすること", async () => {
+      expect((await resolveOne(SPEAKERDECK_ENTRY))?.thumbnail).toBe(EMBED.thumbnail);
+    });
+
+    it("config の image を thumbnail にも使うこと", async () => {
+      const image = "https://example.com/cover.png";
+      expect((await resolveOne({ ...SPEAKERDECK_ENTRY, image }))?.thumbnail).toBe(image);
     });
 
     it("eventUrl が無ければ空文字にすること", async () => {

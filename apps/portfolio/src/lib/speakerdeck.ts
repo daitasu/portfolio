@@ -2,9 +2,12 @@ export type SpeakerdeckEmbed = {
   title: string;
   playerUrl: string;
   image: string;
+  /** 一覧カード用の縮小版（640x360）。 */
+  thumbnail: string;
 };
 
 const OEMBED_ENDPOINT = "https://speakerdeck.com/oembed.json";
+const PRESENTATION_FILES_BASE_URL = "https://files.speakerdeck.com/presentations";
 const PLAYER_SRC_PATTERN = /src="(https:\/\/speakerdeck\.com\/player\/([0-9a-f]+))"/;
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -13,6 +16,7 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 /**
  * oEmbed の html に含まれるプレイヤー iframe から埋め込み URL を取り出す。形式が想定外なら null。
  * 表紙画像は oEmbed に無いので、プレイヤー URL の ID から files.speakerdeck.com の URL を組み立てる。
+ * slide_0.jpg（1440x810）は OGP 用、preview_slide_0.jpg（640x360）は一覧カード用。
  */
 export const parseOembed = (json: unknown): SpeakerdeckEmbed | null => {
   if (!isRecord(json) || typeof json.html !== "string") return null;
@@ -23,7 +27,8 @@ export const parseOembed = (json: unknown): SpeakerdeckEmbed | null => {
   return {
     title: typeof json.title === "string" ? json.title : "",
     playerUrl,
-    image: `https://files.speakerdeck.com/presentations/${presentationId}/slide_0.jpg`,
+    image: `${PRESENTATION_FILES_BASE_URL}/${presentationId}/slide_0.jpg`,
+    thumbnail: `${PRESENTATION_FILES_BASE_URL}/${presentationId}/preview_slide_0.jpg`,
   };
 };
 

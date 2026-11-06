@@ -60,11 +60,13 @@ const writeThumbnail = async (deck: Deck): Promise<void> => {
 
 // デッキ単体の URL は詳細ページの埋め込み元なので、canonical を詳細ページに向けて検索エンジンの評価をそちらへ寄せる。
 // Slidev は lang="en" 固定で吐き、title に " - Slidev" を付けるので直す。
+// Web フォントの CSS は Google Fonts から読むので、フォント本体の配信元へ先に接続しておく。
 const injectHead = (deck: Deck): void => {
   const htmlPath = join(outDirOf(deck), "index.html");
   const html = readFileSync(htmlPath, "utf-8")
     .replace('<html lang="en">', '<html lang="ja">')
     .replace(/(<(?:title|meta property="og:title" content=")[^<]*?)\s*-\s*Slidev/g, "$1")
+    .replace("<head>", '<head>\n<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>')
     .replace("</head>", `<link rel="canonical" href="${esc(SITE_URL + toTalkPath(deck.slug))}">\n</head>`);
   writeFileSync(htmlPath, html);
 };

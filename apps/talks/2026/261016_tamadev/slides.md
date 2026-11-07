@@ -118,7 +118,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/map-now.png')" class="rounded-lg" style="max-height: 22rem;" />
+<img :src="$public('/map-now.webp')" class="rounded-lg" style="max-height: 22rem;" />
 
 <p class="src">出典：地図タイムマシン（local-historia.jp）／国土地理院・OpenStreetMap</p>
 
@@ -171,7 +171,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/relief-color.png')" class="rounded-lg mx-auto" style="max-height: 23rem;" />
+<img :src="$public('/relief-color.webp')" class="rounded-lg mx-auto" style="max-height: 23rem;" />
 
 <p class="src">出典：国土地理院 地理院タイル（数値標高モデル・陰影起伏図・淡色地図）を筆者加工<br>標高値は国土地理院 標高API（DEM1A）で筆者計測</p>
 
@@ -185,7 +185,7 @@ layout: two-cols
 
 # 羽村から 43 km、玉川上水
 
-<img :src="$public('/tamagawa-route.png')" class="rounded-lg mt-1 mx-auto" style="max-height: 17rem;" />
+<img :src="$public('/tamagawa-route.webp')" class="rounded-lg mt-1 mx-auto" style="max-height: 17rem;" />
 
 <div class="grid grid-cols-2 gap-8 mt-1 text-base tight">
 <div>
@@ -231,7 +231,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/sunagawa-tanzaku.png')" class="rounded-lg mx-auto" style="max-height: 21rem;" />
+<img :src="$public('/sunagawa-tanzaku.webp')" class="rounded-lg mx-auto" style="max-height: 21rem;" />
 
 <p class="src">1974年頃の砂川（右下は現在）：地図タイムマシン／国土地理院・OSM を筆者加工<br>出典：立川市「立川市の歴史（〜1700年代）」／東京都水道局「玉川上水」／文化遺産オンライン「玉川上水」</p>
 
@@ -258,7 +258,7 @@ layout: two-cols
 </div>
 
 <div class="flex gap-3 mt-3 items-end">
-  <img :src="$public('/kobu-sl.png')" class="rounded" style="height: 8rem;" />
+  <img :src="$public('/kobu-sl.webp')" class="rounded" style="height: 8rem;" />
   <img :src="$public('/tachikawa-station-old.png')" class="rounded" style="height: 8rem;" />
 </div>
 
@@ -266,7 +266,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/kobu-route.png')" class="rounded-lg mx-auto" style="max-height: 21rem;" />
+<img :src="$public('/kobu-route.webp')" class="rounded-lg mx-auto" style="max-height: 21rem;" />
 
 <p class="src">地図：国土地理院 地理院タイル（赤色立体地図）を筆者加工。路線は駅間を結んだ概略<br>出典：このまちアーカイブス 立川／乗りものニュース「中央線の東中野～立川間はなぜ直線なのか」</p>
 
@@ -349,7 +349,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/aerial-1979.png')" class="rounded-lg mx-auto" style="max-height: 16rem;" />
+<img :src="$public('/aerial-1979.webp')" class="rounded-lg mx-auto" style="max-height: 16rem;" />
 
 <div class="flex gap-3 mt-2 items-center">
   <img :src="$public('/c121-tachikawa.jpg')" class="rounded" style="height: 5rem;" />
@@ -391,7 +391,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/merge-1963.png')" class="rounded-lg mx-auto" style="max-height: 20rem;" />
+<img :src="$public('/merge-1963.webp')" class="rounded-lg mx-auto" style="max-height: 20rem;" />
 
 <p class="src">境界：ROIS-DS人文学オープンデータ共同利用センター「歴史的行政区域データセットβ版」（CC BY 4.0、国土数値情報を加工）、背景：地理院タイル（淡色地図）<br>出典：立川市図書館「立川と砂川の合併について調べる」（『立川市議会史』8.79 km²）／立川市「立川市の概要」<br>面積比は筆者による概算（24.36 − 8.79 = 15.57 km² ≒ 64%）</p>
 
@@ -421,7 +421,7 @@ layout: two-cols
 
 ::right::
 
-<img :src="$public('/base-1974.jpg')" class="rounded-lg mx-auto" style="max-height: 21rem;" />
+<img :src="$public('/base-1974.webp')" class="rounded-lg mx-auto" style="max-height: 21rem;" />
 
 <p class="src">1974年 全面返還前の立川基地<br>国土地理院（CKT7416 を結合）/ CC BY 4.0 / Wikimedia Commons</p>
 

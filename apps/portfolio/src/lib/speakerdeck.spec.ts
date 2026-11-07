@@ -21,6 +21,12 @@ describe("parseOembed", () => {
       );
     });
 
+    it("プレゼンテーション ID から一覧用の縮小画像の URL を組み立てること", () => {
+      expect(parseOembed(OEMBED_RESPONSE)?.thumbnail).toBe(
+        "https://files.speakerdeck.com/presentations/ac9ab729957b4e6fb37f2589937845b5/preview_slide_0.jpg",
+      );
+    });
+
     it("title を取り出すこと", () => {
       expect(parseOembed(OEMBED_RESPONSE)?.title).toBe("Vueでのアニメーションの話");
     });

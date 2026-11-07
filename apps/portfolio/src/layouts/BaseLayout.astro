@@ -43,6 +43,22 @@ const imageUrl = new URL(image, Astro.site).href;
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@daitasu" />
     <slot name="head" />
+    {
+      // 開発中のアクセスを計測に混ぜない
+      import.meta.env.PROD && (
+        <>
+          <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-KYHDFMKP9L"></script>
+          <script is:inline>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+              dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "G-KYHDFMKP9L");
+          </script>
+        </>
+      )
+    }
   </head>
   <body>
     <SiteHeader />

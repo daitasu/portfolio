@@ -1,6 +1,7 @@
 ---
 import { getEntry, render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { AVATAR_URL } from "../lib/site.ts";
 
 const readme = await getEntry("profile", "readme");
 if (readme === undefined) throw new Error("profile コレクションに readme がありません");
@@ -9,7 +10,7 @@ const { Content } = await render(readme);
 
 <BaseLayout description="daitasu のポートフォリオ。経歴・登壇資料・アウトプットをまとめています。">
   <section class="hero">
-    <img class="avatar" src="https://github.com/daitasu.png" alt="daitasu のアイコン" width="96" height="96" />
+    <img class="avatar" src={AVATAR_URL} alt="daitasu のアイコン" width="96" height="96" />
     <h1 class="notranslate" translate="no">daitasu</h1>
   </section>
   <div class="prose">

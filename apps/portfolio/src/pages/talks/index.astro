@@ -3,6 +3,9 @@ import { getCollection } from "astro:content";
 import TalkCard from "../../components/TalkCard.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
+// デスクトップで 1 行目に並ぶ枚数。これより後ろは遅延読み込みにする。
+const PRIORITY_CARD_COUNT = 3;
+
 const talks = (await getCollection("talks"))
   .map((entry) => entry.data)
   .filter((talk) => talk.listed)
@@ -13,7 +16,7 @@ const talks = (await getCollection("talks"))
   <h1>daitasu slides</h1>
   <p class="lead">登壇スライド一覧</p>
   <div class="grid">
-    {talks.map((talk) => <TalkCard talk={talk} />)}
+    {talks.map((talk, index) => <TalkCard talk={talk} priority={index < PRIORITY_CARD_COUNT} />)}
   </div>
 </BaseLayout>
 

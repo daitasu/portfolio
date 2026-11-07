@@ -13,8 +13,10 @@ export const talkItemSchema = z.object({
   event: z.string(),
   eventUrl: z.string(),
   description: z.string(),
-  // サムネイル・OGP 画像。slidev はサイト内パス、SpeakerDeck は絶対 URL。空ならプレースホルダ表示。
+  // OGP 画像。slidev はサイト内パス、SpeakerDeck は絶対 URL。
   image: z.string(),
+  // 一覧カードの画像。OGP 画像の縮小版で、無ければ image と同じ。空ならプレースホルダ表示。
+  thumbnail: z.string(),
   // iframe で埋め込む URL。空なら埋め込みなしで sourceUrl へのリンクだけを出す。
   embedUrl: z.string(),
   // スライド本体を単体で開く URL。
@@ -27,12 +29,15 @@ export type TalkItem = z.infer<typeof talkItemSchema>;
 
 export type ResolveTalksDeps = {
   decks: Deck[];
-  hasCoverImage: (slug: string) => boolean;
+  /** apps/talks の build がデッキの出力先に書いたファイルがあるか。 */
+  hasSlideFile: (slug: string, fileName: string) => boolean;
   fetchSpeakerdeckEmbed: (url: string) => Promise<SpeakerdeckEmbed | null>;
   warn: (message: string) => void;
 };
 
+// apps/talks/scripts/build.mts が書き出すファイル名と合わせる
 const COVER_IMAGE_NAME = "og.png";
+const THUMBNAIL_NAME = "thumb.webp";
 
 export const describeTalk = (date: string, event: string): string => {
   const subject = [date && formatProseDate(date), event && `「${event}」`].filter(Boolean).join(" ");
@@ -47,6 +52,8 @@ const resolveEntry = async (entry: TalkEntry, deps: ResolveTalksDeps): Promise<T
       return null;
     }
     const slidesPath = toSlidesPath(deck.slug);
+    const image = deps.hasSlideFile(deck.slug, COVER_IMAGE_NAME) ? `${slidesPath}${COVER_IMAGE_NAME}` : "";
+    const thumbnail = deps.hasSlideFile(deck.slug, THUMBNAIL_NAME) ? `${slidesPath}${THUMBNAIL_NAME}` : image;
     return {
       slug: deck.slug,
       kind: "slidev",
@@ -55,7 +62,8 @@ const resolveEntry = async (entry: TalkEntry, deps: ResolveTalksDeps): Promise<T
       event: deck.event,
       eventUrl: deck.eventUrl,
       description: deck.description || describeTalk(deck.date, deck.event),
-      image: deps.hasCoverImage(deck.slug) ? `${slidesPath}${COVER_IMAGE_NAME}` : "",
+      image,
+      thumbnail,
       embedUrl: slidesPath,
       sourceUrl: slidesPath,
       listed: entry.status !== "draft",
@@ -74,6 +82,7 @@ const resolveEntry = async (entry: TalkEntry, deps: ResolveTalksDeps): Promise<T
     eventUrl: entry.eventUrl ?? "",
     description: describeTalk(entry.date, event),
     image: entry.image || embed?.image || "",
+    thumbnail: entry.image || embed?.thumbnail || "",
     embedUrl: embed?.playerUrl ?? "",
     sourceUrl: entry.url,
     listed: true,

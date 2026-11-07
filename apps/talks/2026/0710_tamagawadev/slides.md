@@ -11,7 +11,7 @@ fonts:
   mono: JetBrains Mono
   weights: "300,400,500,700"
 layout: cover
-dino: /daitasaurus-bolt-lord.png
+dino: /daitasaurus-bolt-lord.webp
 ---
 
 # CSS だけでFPS視点<br>スクロールアクションを実現する

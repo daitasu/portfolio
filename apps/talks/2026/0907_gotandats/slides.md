@@ -11,7 +11,7 @@ fonts:
   mono: JetBrains Mono
   weights: "300,400,500,700"
 layout: cover
-dino: /daitasaurus-wind-lord.png
+dino: /daitasaurus-wind-lord.webp
 ---
 
 # AI がUIをつくる時代の<br>制約を考える
@@ -402,6 +402,6 @@ type PriceNode = {
 
 <div class="mt-6 flex justify-center">
   <a href="https://fortee.jp/fec-kansai-2026/proposal/c3a11073-a69b-421e-941a-76c7785a3387" target="_blank">
-    <img :src="$public('/capture_fec_kansai.png')" class="rounded-lg" style="max-height: 20rem; box-shadow: 0 16px 36px -22px rgba(30, 64, 128, 0.34); border: 1px solid #e5e7eb;" />
+    <img :src="$public('/capture_fec_kansai.webp')" class="rounded-lg" style="max-height: 20rem; box-shadow: 0 16px 36px -22px rgba(30, 64, 128, 0.34); border: 1px solid #e5e7eb;" />
   </a>
 </div>

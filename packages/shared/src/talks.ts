@@ -1,4 +1,4 @@
-export const SITE_URL = "https://portfolio.daitasu.work";
+export const SITE_URL = "https://daitasu.work";
 
 /**
  * talks.config.ts に並べる登壇 1 件。

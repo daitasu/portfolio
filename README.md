@@ -1,4 +1,4 @@
-# portfolio.daitasu.work
+# daitasu.work
 
 daitasu のポートフォリオサイトと、登壇スライドを管理する monorepo。
 
@@ -115,5 +115,4 @@ SpeakerDeck の登壇は `kind: "speakerdeck"` で `slug`（詳細ページの U
 ## デプロイ
 
 main への push で `.github/workflows/deploy.yml` が Cloudflare Pages にデプロイする。
-仕組みの詳細は [apps/talks/docs/cloudflare-pages-deploy.md](apps/talks/docs/cloudflare-pages-deploy.md)、
-talks.daitasu.work からの移行手順は [docs/migration.md](docs/migration.md) を参照。
+仕組みの詳細は [apps/talks/docs/cloudflare-pages-deploy.md](apps/talks/docs/cloudflare-pages-deploy.md) を参照。

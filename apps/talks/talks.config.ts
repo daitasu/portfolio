@@ -3,6 +3,7 @@
 import type { TalkEntry } from "@daitasu/shared/talks";
 
 export const talks: TalkEntry[] = [
+  { kind: "slidev", slug: "2026/261019_ginzajs" },
   { kind: "slidev", slug: "2026/261016_tamadev" },
   { kind: "slidev", slug: "2026/261012_frontendconf_kansai" },
   { kind: "slidev", slug: "2026/0907_gotandats" },

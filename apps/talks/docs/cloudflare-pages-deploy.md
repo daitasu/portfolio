@@ -129,37 +129,5 @@ hash モードなら `/slides/<year>/<slug>/` より後ろは全部クライア�
 
 - 必要な GitHub Secrets: `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`
 - `--project-name=daitasu-talks` は Cloudflare Pages のプロジェクト名と一致させる（変えたらここも直す）。
-- daitasu/daitasu から `repository_dispatch`（`profile-updated`）を受けても走る。送信側の設定は次の「daitasu/daitasu の更新で再ビルドさせる」を参照。
 
 ローカルで `apps/portfolio/dist/` を確認するときは `just build` → `just start`。
-
-### daitasu/daitasu の更新で再ビルドさせる
-
-プロフィールと職歴の Markdown はビルド時に取得するので、daitasu/daitasu を更新しただけでは反映されない。
-daitasu/daitasu 側から `repository_dispatch` を送って、このリポジトリのデプロイを起動する。
-
-1. Fine-grained personal access token を作る。
-   - Repository access: `daitasu/portfolio` のみ
-   - Permissions: Contents を Read and write（`repository_dispatch` の送信に必要）
-2. daitasu/daitasu の Settings → Secrets and variables → Actions に `PORTFOLIO_DISPATCH_TOKEN` として登録する。
-3. daitasu/daitasu に `.github/workflows/notify-portfolio.yml` を置く。
-
-```yaml
-name: Notify portfolio
-
-on:
-  push:
-    branches: [main]
-    paths: [README.md, resume.md]
-
-jobs:
-  dispatch:
-    runs-on: ubuntu-latest
-    steps:
-      - run: gh api repos/daitasu/portfolio/dispatches -f event_type=profile-updated
-        env:
-          GH_TOKEN: ${{ secrets.PORTFOLIO_DISPATCH_TOKEN }}
-```
-
-確認: daitasu/daitasu の `resume.md` を更新して push し、このリポジトリの Actions で `repository_dispatch` 起動の Deploy が走ることを見る。
-

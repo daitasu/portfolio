@@ -128,6 +128,6 @@ hash モードなら `/slides/<year>/<slug>/` より後ろは全部クライア�
 `.github/workflows/deploy.yml` が main への push で走る。
 
 - 必要な GitHub Secrets: `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`
-- `--project-name=daitasu-talks` は Cloudflare Pages のプロジェクト名と一致させる（変えたらここも直す）。
+- `--project-name=portfolio` は Cloudflare Pages のプロジェクト名と一致させる（変えたらここも直す）。
 
 ローカルで `apps/portfolio/dist/` を確認するときは `just build` → `just start`。

@@ -45,7 +45,7 @@ jobs:
       # wrangler-action は wrangler が無いと workspace のルートに pnpm add しようとして落ちるので、
       # ルートの devDependencies に入れた wrangler を直接呼ぶ。project-name は Cloudflare Pages のプロジェクト名に合わせる。
       - name: Deploy to Cloudflare Pages
-        run: pnpm exec wrangler pages deploy apps/portfolio/dist --project-name=daitasu-talks --branch=main
+        run: pnpm exec wrangler pages deploy apps/portfolio/dist --project-name=portfolio --branch=main
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

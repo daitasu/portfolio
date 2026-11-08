@@ -129,5 +129,6 @@ hash モードなら `/slides/<year>/<slug>/` より後ろは全部クライア�
 
 - 必要な GitHub Secrets: `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_ACCOUNT_ID`
 - `--project-name=portfolio` は Cloudflare Pages のプロジェクト名と一致させる（変えたらここも直す）。
+- 失敗すると「main のデプロイが失敗している」という Issue が立ち、リポジトリのオーナーにアサインされる。同じタイトルの Issue が開いていればコメントを足す。直ったら手で閉じる。
 
 ローカルで `apps/portfolio/dist/` を確認するときは `just build` → `just start`。

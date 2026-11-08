@@ -9,22 +9,39 @@
         {{ label || displayUrl }}
       </div>
     </div>
-    <iframe
-      :src="src"
-      :style="{ height }"
-      class="demo-frame__view"
-      loading="lazy"
-    />
+    <div :style="{ height }" class="demo-frame__viewport">
+      <iframe
+        :src="src"
+        :style="viewStyle"
+        class="demo-frame__view"
+        loading="lazy"
+      />
+    </div>
   </div>
 </template>
 
 <script setup>
 import { computed } from "vue";
+import { useSlideContext } from "@slidev/client";
 
 const props = defineProps({
   src: { type: String, required: true },
   height: { type: String, default: "400px" },
   label: { type: String, default: "" },
+  // スライドの拡大率を打ち消し、iframe の中身を画面の等倍（ブラウザ標準の zoom）で描く
+  native: { type: Boolean, default: false },
+});
+
+const { $scale } = useSlideContext();
+const viewStyle = computed(() => {
+  if (!props.native) return { height: "100%" };
+  const s = $scale.value;
+  return {
+    width: `${100 * s}%`,
+    height: `${100 * s}%`,
+    transform: `scale(${1 / s})`,
+    transformOrigin: "0 0",
+  };
 });
 
 const displayUrl = computed(() =>
@@ -84,6 +101,10 @@ const displayUrl = computed(() =>
   font-weight: 700;
   letter-spacing: 0.04em;
   flex: none;
+}
+
+.demo-frame__viewport {
+  overflow: hidden;
 }
 
 .demo-frame__view {

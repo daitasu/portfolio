@@ -342,22 +342,14 @@ layout: two-cols
 # 判定ロジック
 
 <div class="judge-grid">
-<div class="text-sm">
+<div class="text-base">
 
-- Jev の **Noul** を 3 つ並べて、1 リクエストで聞く
-  - **建前**（`literal`）: 言葉の上では Yes か
-  - **本音**（`intent`）: 嫌味や渋々も読んで、本心は Yes か
-  - **妥当性**（`onTopic`）: お題への返事になっているか
-- 建前と本音で変えているのは、`instructions` の一文と `deep down,` だけ
-- 妥当性が 50% 未満なら **0 点**
-- 建前と本音の Yes% を**平均**し、50:50 に近いほど高得点
-
-```ts
-const yesPercent = (literalYesPercent + intentYesPercent) / 2;
-const score = isOnTopic
-  ? 100 - Math.abs(2 * yesPercent - 100) // Yes 60% なら 80 点
-  : 0;
-```
+- **Noul** を 3 つ、1 回で聞く
+  - **建前** `literal`: 字面は Yes か
+  - **本音** `intent`: 本心は Yes か
+  - **妥当性** `onTopic`: 返事になっているか
+- 妥当性 50% 未満は **0 点**
+- 建前と本音の**平均**が 50:50 に近いほど高得点
 
 </div>
 <div>
@@ -398,7 +390,7 @@ questions: {
 
 <style>
 .judge-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 1.5rem; margin-top: 0.5rem; }
-.judge-grid ul { line-height: 1.7; }
+.judge-grid ul { line-height: 1.9; }
 .slidev-code, .slidev-code * { font-size: 9.5px !important; line-height: 1.4 !important; }
 </style>
 

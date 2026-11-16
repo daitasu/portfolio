@@ -338,37 +338,45 @@ layout: two-cols
 </div>
 
 ---
-layout: two-cols
----
 
 # 判定ロジック
 
-::left::
-
-<div class="mt-6 text-base">
+<div class="judge-grid">
+<div class="text-sm">
 
 - Jev の **Noul** を 3 つ並べて、1 リクエストで聞く
   - **建前**（`literal`）: 言葉の上では Yes か
-  - **本音**（`intent`）: 嫌味や渋々も読んだ上で、本心は Yes か
+  - **本音**（`intent`）: 嫌味や渋々も読んで、本心は Yes か
   - **妥当性**（`onTopic`）: お題への返事になっているか
+- 建前と本音で変えているのは、`instructions` の一文と `deep down,` だけ
 - 妥当性が 50% 未満なら **0 点**
 - 建前と本音の Yes% を**平均**し、50:50 に近いほど高得点
-  - Yes 60% なら 80 点、50% で満点
+
+```ts
+const yesPercent = (literalYesPercent + intentYesPercent) / 2;
+const score = isOnTopic
+  ? 100 - Math.abs(2 * yesPercent - 100) // Yes 60% なら 80 点
+  : 0;
+```
 
 </div>
-
-::right::
+<div>
 
 ```ts
 questions: {
   literal: {
     type: "noul",
-    instructions: "... Does it mean yes?",
+    instructions:
+      "Read the reply to the situation, including what it implies. " +
+      "Does it mean yes?",
     criteria: { true: topic.yesCriteria, false: topic.noCriteria },
   },
   intent: {
     type: "noul",
-    instructions: "Read between the lines ... truly say yes?",
+    instructions:
+      "Read between the lines, including sarcasm, reluctance, " +
+      "and conditions that may never be met. " +
+      "Does the speaker truly want to say yes?",
     criteria: {
       true: `deep down, ${topic.yesCriteria}`,
       false: `deep down, ${topic.noCriteria}`,
@@ -377,18 +385,21 @@ questions: {
   onTopic: {
     type: "noul",
     instructions: "Is the reply a response to the situation?",
-    criteria: { true: "a reply ...", false: "unrelated ..." },
+    criteria: {
+      true: "a reply to the situation, even a vague or evasive one",
+      false: "unrelated, meaningless, or only repeats the situation",
+    },
   },
 },
 ```
 
-```ts
-const yesPercent = (literalYesPercent + intentYesPercent) / 2;
-const score = isOnTopic ? 100 - Math.abs(2 * yesPercent - 100) : 0;
-```
+</div>
+</div>
 
 <style>
-.slidev-code, .slidev-code * { font-size: 9.5px !important; line-height: 1.45 !important; }
+.judge-grid { display: grid; grid-template-columns: 2fr 3fr; gap: 1.5rem; margin-top: 0.5rem; }
+.judge-grid ul { line-height: 1.7; }
+.slidev-code, .slidev-code * { font-size: 9.5px !important; line-height: 1.4 !important; }
 </style>
 
 ---

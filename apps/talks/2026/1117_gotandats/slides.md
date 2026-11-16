@@ -230,6 +230,54 @@ const body = {
 </style>
 
 ---
+layout: two-cols
+---
+
+# 「型安全」は 2 段構え
+
+::left::
+
+<div class="mt-6 text-base">
+
+- **モデル側**: 文章を生成しない
+  - 答えは確率・ラベル・点数のどれかだけ
+  - 生成してから型に合わせる LLM とは違う
+- **SDK 側**: 問いから答えの型を推論
+  - `const` 型パラメータでキーをリテラル型に
+  - 聞いていない質問は**コンパイルエラー**
+
+</div>
+
+::right::
+
+```ts
+import { choice, noul, score } from "@typesafe-ai/sdk";
+
+const { answers } = await jev.systemOne({
+  state: "サブスクが二重に請求されてました。返金して！",
+  questions: {
+    tone: choice("What is the tone?", {
+      angry: null, calm: null, excited: null,
+    }),
+    urgency: score("How urgent?", ["Later", "Week", "Today"]),
+    billing: noul("Is this about billing?"),
+  },
+});
+
+answers.tone.choice;       // "angry" | "calm" | "excited"
+answers.urgency.legend;    // キーは "0" | "1" | "2"
+answers.billing.noul;      // number
+
+answers.refund;            // ❌ 聞いていない質問
+answers.urgency.legend["3"]; // ❌ rubric は 3 段階
+score("Q", ["Only one"]);  // ❌ rubric は 2 段階以上
+```
+
+<style>
+.slidev-code, .slidev-code * { font-size: 10px !important; line-height: 1.5 !important; }
+</style>
+
+---
 
 # Jev があると何が嬉しい？
 

@@ -105,6 +105,26 @@ layout: cover
 > frontmatter は YAML なので、半角スペースに続く `#` 以降はコメントとして捨てられる。
 > `#` を含む値（例: `多摩.dev #3`）は必ず引用符で囲む。
 
+### 見た目の切り替え
+
+ベースの色と装飾は、frontmatter で別々に選ぶ。
+
+| 指定 | 見た目 |
+| --- | --- |
+| `colorSchema: light` | 白地に水色のアクセント |
+| `colorSchema: dark` ＋ `themeConfig.palette: navy` | ポートフォリオのダークモードと同じネイビー |
+| `colorSchema: dark`（palette なし） | 旧ダーク（黒地にオレンジ）。`2026/0612_tamadev` 用 |
+| `themeConfig.motif` なし | 上下に青い波 |
+| `themeConfig.motif: wind` | 上下に緑の風（流線と葉） |
+
+```yaml
+colorSchema: light
+themeConfig:
+  motif: wind
+```
+
+装飾を増やすときは、`themes/daitasu/styles/layouts.css` に `html.dt-motif-<名前>` 用のブロックを足す。
+
 draft は詳細ページとスライドだけがビルドされ、一覧と sitemap には出ない（詳細ページは noindex）。
 公開するときは、`talks.config.ts` の該当エントリから `status: "draft"` を消す。
 `talks.config.ts` に無いデッキはビルドされない。

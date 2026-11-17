@@ -64,7 +64,7 @@ layout: intro
     </div>
     <div>
       <p>Career:</p>
-      <p class="ml-3">SIer(2年)→ Frontend (3年) → EM (4年) → IC</p>
+      <p class="ml-3">SIer(2年)　→ Frontend (3年) → EM (4年) → IC</p>
     </div>
     <div>
       <p>Community:</p>
@@ -83,7 +83,7 @@ layout: center
 ---
 
 <div class="text-center text-xl" style="color: var(--dt-text-muted);">今日のお話</div>
-<div class="text-center font-bold accent mt-6" style="font-size: 8rem; line-height: 1;">Jev</div>
+<div class="text-center font-bold accent mt-6" style="font-size: 10rem; line-height: 1;">Jev</div>
 
 ---
 
@@ -91,13 +91,13 @@ layout: center
 
 <div class="mt-6 text-lg">
 
-- テキストを生成しない、**判断特化**の AI モデル（System One Model）
-- 2026/9/15 に **TypeSafe AI** がリリース
-- 形式の決まっていない文章やデータを渡すと、**型の決まった判断**が確率付きで返ってくる
-  - 文章を書かない代わりに、**速く**（70〜500ms）、**安い**（入力 $0.042 / MTok、出力は無料）
-  - System One はカーネマンの「システム 1（速い思考）」、Jev は経済学者ジェヴォンズが由来
+- テキスト生成をしない、**判断特化**の AI モデル（System One Model）
+  - ダニエル・カーネマンが提唱した `システム 1(直感的思考)`、`システム 2(論理的思考)`が由来
+- 2026/9/15 に **TypeSafe AI** がリリース 🎉
+- 形式の決まっていない文章やデータをもとに、**型の決まった判断** が確率付きで返ってくる
+  - 生成しない代わりに、**速く**（70〜500ms）、**安い**（入力 $0.042 / MTok、出力は無料）
 - 扱える質問は 3 種類
-  - `Choice`（どれ？）、`Noul`（Yes / No？）、`Score`（どのくらい？）
+  - `Choice`（候補ごとの確率）、`Noul`（真である確率）、`Score`（段階に沿った確率）
 
 </div>
 
@@ -111,9 +111,9 @@ layout: two-cols
 
 <div class="mt-6 text-lg">
 
-- 名前付きの選択肢から **1 つを選ぶ**
+- 名前付きの　**選択肢ごとの確率を返却**
 - 選択肢は最大 255 個
-- 選ばれたラベルに加えて、**選択肢ごとの確率**と confidence が返る
+- 選ばれたラベルに加えて、**選択肢ごとの確率**と `confidence` が返る
 - 用途: 問い合わせの分類、感情分析、メールの振り分け
 
 </div>
@@ -123,23 +123,23 @@ layout: two-cols
 ```ts
 const body = {
   model: "jev-latest",
-  state: "サブスクが二重に請求されてました。返金して！",
+  state: "届いた靴のサイズが間違ってました。交換は可能ですか？",
   questions: {
     tone: {
       type: "choice",
-      instructions: "What is the tone of this message?",
+      instructions: "Which team should handle this?",
       criteria: {
-        angry: "An upset or hostile message",
-        calm: "A neutral or polite message",
-        excited: "An enthusiastic or eager message",
-      },
+        returns: "Exchanges, wrong or damaged items",
+        shipping: "Delivery status, delays, lost packages",
+        billing: "Charges, invoices, payment problems"
+      }
     },
   },
 };
 
 // answers.tone
 // { type: "choice", choice: "calm", confidence: 0.7,
-//   probabilities: { angry: 0.15, calm: 0.8, excited: 0.05 } }
+//   probabilities: { returns: 0.8, shipping: 0.15, billing: 0.05 } }
 ```
 
 <style>
@@ -194,9 +194,9 @@ layout: two-cols
 
 <div class="mt-6 text-lg">
 
-- **順序のある尺度**（最大 10 段階）で評価する
+- **段階ごとの確率**（最大 10 段階）で評価する
 - 配列の位置がそのまま点数（0 始まり）
-- 返る `score` は確率の加重平均なので、**1.7 のような中間値**にもなる
+- 返る `score` は確率の加重平均で、**1.43 のような中間値**にもなる
 - 用途: レビューの品質評価、リスク評価、優先度づけ
 
 </div>
@@ -206,27 +206,34 @@ layout: two-cols
 ```ts
 const body = {
   model: "jev-latest",
-  state: "サブスクが二重に請求されてました。返金して！",
+  state:
+    "The export button crashes the settings page in Safari. " +
+    "It works in Chrome, but a few of our customers " +
+    "only use Safari.",
   questions: {
-    urgency: {
+    bug_severity: {
       type: "score",
-      instructions: "How urgent is this message?",
+      instructions: "How severe is the reported issue?",
       criteria: [
-        "Can wait",
-        "Needs attention this week",
-        "Needs attention today",
+        "Cosmetic; no impact to functionality",
+        "Broken or degraded feature, but workaround exists",
+        "Blocking issue; no workaround exists",
       ],
     },
   },
 };
 
-// answers.urgency
-// { type: "score", score: 1.7, confidence: 0.55,
-//   probabilities: { "0": 0.1, "1": 0.1, "2": 0.8 } }
+// answers.bug_severity
+// { type: "score", score: 1.43, confidence: 0.35,
+//   legend: {
+//     "0": "Cosmetic; no impact to functionality",
+//     "1": "Broken or degraded feature, but workaround exists",
+//     "2": "Blocking issue; no workaround exists" },
+//   probabilities: { "0": 0.0, "1": 0.57, "2": 0.43 } }
 ```
 
 <style>
-.slidev-code, .slidev-code * { font-size: 10.5px !important; line-height: 1.5 !important; }
+.slidev-code, .slidev-code * { font-size: 9.5px !important; line-height: 1.45 !important; }
 </style>
 
 ---

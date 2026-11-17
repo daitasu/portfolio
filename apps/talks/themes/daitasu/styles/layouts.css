@@ -27,6 +27,30 @@ html.light {
   --dt-link: #4a90d9;
   --dt-border: #e5e7eb;
   --dt-code-bg: #f1f5f9;
+  --dt-surface: #f6f8fc;
+  --dt-accent-soft: rgba(74, 144, 217, 0.12);
+  --dt-glow-strong: rgba(74, 144, 217, 0.16);
+  --dt-glow-soft: rgba(74, 144, 217, 0.09);
+  --dt-shadow-card: 0 16px 36px -22px rgba(30, 64, 128, 0.34), 0 2px 6px -3px rgba(15, 23, 42, 0.06);
+}
+
+/* ---------- Navy dark (portfolio のダークモードと同じ色味) ----------
+   デッキの headmatter で `colorSchema: dark` + `themeConfig: { palette: navy }` を指定すると有効になる。
+   light 用の装飾（波・コードカード・見出し下線）もこのパレットで効く。 */
+html.dark.dt-navy {
+  --dt-bg: #0b1422;
+  --dt-bg-soft: #111d2e;
+  --dt-text: #e6edf6;
+  --dt-text-muted: #94a3b8;
+  --dt-accent: #6aa9ec;
+  --dt-link: #6aa9ec;
+  --dt-border: #1f2f45;
+  --dt-code-bg: #16253a;
+  --dt-surface: #111d2e;
+  --dt-accent-soft: rgba(106, 169, 236, 0.14);
+  --dt-glow-strong: rgba(74, 144, 217, 0.22);
+  --dt-glow-soft: rgba(74, 144, 217, 0.12);
+  --dt-shadow-card: 0 10px 30px -22px rgba(0, 0, 0, 0.7);
 }
 
 /* ---------- Slide container background ---------- */
@@ -196,11 +220,11 @@ html:root {
 }
 
 /* ---------- Light mode title decoration ---------- */
-html.light .slidev-layout h1 {
+html:is(.light, .dt-navy) .slidev-layout h1 {
   position: relative;
 }
 
-html.light .slidev-layout.default h1::after {
+html:is(.light, .dt-navy) .slidev-layout.default h1::after {
   content: "";
   display: block;
   width: 100%;
@@ -217,20 +241,20 @@ html.light .slidev-layout.default h1::after {
 }
 
 /* ============================================
-   Branding polish (light mode only)
-   dark decks are untouched (guarded by html.light)
+   Branding polish (light / navy dark)
+   旧ダーク（黒×オレンジ）のデッキには効かない
    ============================================ */
 
 /* Cover: soft ambient accent glow behind the title (on the element itself,
    so ::before / ::after stay free for the HUD frame) */
-html.light .slidev-layout.cover {
+html:is(.light, .dt-navy) .slidev-layout.cover {
   background-image:
-    radial-gradient(760px 460px at 90% -14%, rgba(74, 144, 217, 0.16), transparent 62%),
-    radial-gradient(620px 420px at -12% 114%, rgba(74, 144, 217, 0.09), transparent 60%);
+    radial-gradient(760px 460px at 90% -14%, var(--dt-glow-strong), transparent 62%),
+    radial-gradient(620px 420px at -12% 114%, var(--dt-glow-soft), transparent 60%);
 }
 
 /* Cover: eyebrow tag / subtitle / byline */
-html.light .slidev-layout.cover h1 {
+html:is(.light, .dt-navy) .slidev-layout.cover h1 {
   margin-bottom: 0;
   line-height: 1.18;
 }
@@ -240,7 +264,7 @@ html.light .slidev-layout.cover h1 {
   padding: 6px 16px;
   margin-top: 1.75rem;
   border-radius: 999px;
-  background: rgba(74, 144, 217, 0.12);
+  background: var(--dt-accent-soft, rgba(74, 144, 217, 0.12));
   color: var(--dt-accent);
   font-weight: 500;
   font-size: 0.85rem;
@@ -260,30 +284,28 @@ html.light .slidev-layout.cover h1 {
 }
 
 /* Code blocks: lift them off the page with a soft, blue-tinted shadow */
-html.light .slidev-code {
+html:is(.light, .dt-navy) .slidev-code {
   border-radius: 12px !important;
   padding: 16px 18px !important;
-  background: #f6f8fc !important;
-  border: 1px solid rgba(74, 144, 217, 0.12);
-  box-shadow:
-    0 16px 36px -22px rgba(30, 64, 128, 0.34),
-    0 2px 6px -3px rgba(15, 23, 42, 0.06);
+  background: var(--dt-surface) !important;
+  border: 1px solid var(--dt-accent-soft);
+  box-shadow: var(--dt-shadow-card);
 }
 
 /* Default content headings: slightly tighter, more intentional */
-html.light .slidev-layout.default h1,
-html.light .slidev-layout h1 {
+html:is(.light, .dt-navy) .slidev-layout.default h1,
+html:is(.light, .dt-navy) .slidev-layout h1 {
   letter-spacing: -0.01em;
 }
 
 /* Branding font (light decks only; dark decks keep their font) */
-html.light .slidev-layout {
+html:is(.light, .dt-navy) .slidev-layout {
   font-family: "Zen Kaku Gothic New", "IBM Plex Sans", "Hiragino Sans", sans-serif;
 }
-html.light .slidev-layout code,
-html.light .slidev-layout pre,
-html.light .slidev-layout .slidev-code,
-html.light .slidev-layout .slidev-code * {
+html:is(.light, .dt-navy) .slidev-layout code,
+html:is(.light, .dt-navy) .slidev-layout pre,
+html:is(.light, .dt-navy) .slidev-layout .slidev-code,
+html:is(.light, .dt-navy) .slidev-layout .slidev-code * {
   font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace !important;
 }
 
@@ -293,10 +315,10 @@ html.light .slidev-layout .slidev-code * {
    wave ribbon at the top. Drawn as the layout's own
    background so it sits behind content.
    ============================================ */
-html.light .slidev-layout {
+html:is(.light, .dt-navy) .slidev-layout {
   position: relative;
 }
-html.light .slidev-layout::before {
+html:is(.light, .dt-navy) .slidev-layout::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -310,18 +332,49 @@ html.light .slidev-layout::before {
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 74 C260 34 520 104 780 68 C1020 36 1240 98 1440 66 L1440 120 L0 120 Z' fill='%234a90d9' fill-opacity='0.10'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 120' preserveAspectRatio='none'%3E%3Cpath d='M0 58 C240 98 480 18 720 54 C960 90 1200 22 1440 58 L1440 0 L0 0 Z' fill='%234a90d9' fill-opacity='0.07'/%3E%3C/svg%3E");
 }
-html.light .slidev-layout > * {
+html:is(.light, .dt-navy) .slidev-layout > * {
   position: relative;
   z-index: 1;
+}
+
+/* ============================================
+   Motif: wind — 波の代わりに、緑の風（渦を巻く流線と葉）を上下に流す。
+   headmatter の themeConfig: { motif: wind } で有効。文字色やアクセントはパレットのまま。
+   ============================================ */
+html:is(.light, .dt-navy).dt-motif-wind {
+  --dt-glow-strong: rgba(79, 168, 122, 0.14);
+  --dt-glow-soft: rgba(79, 168, 122, 0.08);
+}
+/* 白×風は強調文字、見出し下線、コードカードも緑にそろえる（リンクは水色のまま）。文字の緑は白地で読める濃さにしている */
+html.light.dt-motif-wind {
+  --dt-accent: #2e8b57;
+  --dt-surface: #f4faf5;
+  --dt-code-bg: #e8f4ec;
+  --dt-accent-soft: rgba(79, 168, 122, 0.14);
+  --dt-shadow-card: 0 16px 36px -22px rgba(30, 96, 64, 0.32), 0 2px 6px -3px rgba(15, 42, 23, 0.06);
+}
+html:is(.light, .dt-navy).dt-motif-wind .slidev-layout::before {
+  background-position: center bottom, center top;
+  background-size: 100% auto, 100% auto;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 200' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='0'%3E%3Cstop offset='0' stop-color='%237cc3e6'/%3E%3Cstop offset='0.5' stop-color='%238fd3a0'/%3E%3Cstop offset='1' stop-color='%239fd46a'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 100 C380 160 820 172 1440 95 L1440 140 C860 205 380 192 0 142 Z' fill='%239fd46a' fill-opacity='0.26'/%3E%3Cpath d='M0 132 C420 178 900 160 1440 118 L1440 146 C900 190 420 198 0 158 Z' fill='%238fd3a0' fill-opacity='0.22'/%3E%3Cpath d='M0 170 C460 182 960 192 1440 158 L1440 200 L0 200 Z' fill='%237cc3e6' fill-opacity='0.1'/%3E%3Cpath d='M0 104 C360 168 780 170 1440 100' stroke='url(%23g)' stroke-width='1.6' stroke-opacity='0.55'/%3E%3Cpath d='M0 122 C360 174 780 166 1440 116' stroke='url(%23g)' stroke-width='2.4' stroke-opacity='0.45000000000000007'/%3E%3Cpath d='M0 140 C360 180 780 162 1440 132' stroke='url(%23g)' stroke-width='1.6' stroke-opacity='0.35000000000000003'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' fill='none'%3E%3Cdefs%3E%3ClinearGradient id='t' x1='0' x2='1' y1='0' y2='0'%3E%3Cstop offset='0' stop-color='%239fd46a' stop-opacity='0'/%3E%3Cstop offset='0.45' stop-color='%239fd46a'/%3E%3Cstop offset='1' stop-color='%237cc3e6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M420 0 C760 44 1080 10 1440 46 L1440 0 Z' fill='%238fd3a0' fill-opacity='0.18'/%3E%3Cpath d='M380 4 C740 42 1080 8 1440 34' stroke='url(%23t)' stroke-width='2' stroke-opacity='0.5'/%3E%3Cpath d='M380 12 C740 50 1080 14 1440 46' stroke='url(%23t)' stroke-width='1.4' stroke-opacity='0.38'/%3E%3C/svg%3E");
 }
 
 /* The `> *` lift above out-specifies cover.vue's scoped `.dino-img`, which
    un-absolutes the dino in light mode and lets the flex column stretch it
    horizontally. Re-pin it bottom-right so light covers match dark covers. */
-html.light .slidev-layout.cover .dino-img {
+html:is(.light, .dt-navy) .slidev-layout.cover .dino-img {
   position: absolute;
   bottom: 0;
   right: 0;
   height: 16rem;
   width: auto;
+}
+
+/* global-bottom.vue の「一覧へ」は白い下地を固定で持つので、ネイビーでは沈ませる */
+html.dt-navy .back-to-index {
+  color: var(--dt-accent);
+  background: rgba(17, 29, 46, 0.82);
+  border-color: rgba(106, 169, 236, 0.35);
 }

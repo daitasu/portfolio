@@ -333,8 +333,12 @@ layout: two-cols
 
 ::right::
 
-<div class="mt-6 flex justify-center">
+<div class="mt-6 flex flex-col items-center">
   <img :src="$public('/aimai-ogp.png')" class="rounded-lg" style="box-shadow: var(--dt-shadow-card);" />
+  <div class="mt-4 flex items-center gap-3">
+    <img :src="$public('/qrcode_aimai.png')" class="rounded-1 h-24" />
+    <a href="https://aim-ai.pages.dev/" target="_blank" class="text-sm">aim-ai.pages.dev</a>
+  </div>
 </div>
 
 ---
@@ -413,14 +417,12 @@ questions: {
 </div>
 
 <div class="grid grid-cols-2 gap-6 mt-4">
-  <!-- TODO: ええ塩梅のキャプチャを public/aimai-anbai.png に置いて img に差し替える -->
-  <div class="capture-placeholder">ええ塩梅（80 点〜）のキャプチャ</div>
-  <!-- TODO: ちょうどええのキャプチャを public/aimai-jackpot.png に置いて img に差し替える -->
-  <div class="capture-placeholder">ちょうどええ！（90 点超）のキャプチャ</div>
+  <img :src="$public('/aimai-anbai.webp')" class="capture" alt="ええ塩梅（80 点〜）の演出" />
+  <img :src="$public('/aimai-jackpot.webp')" class="capture" alt="ちょうどええ！（90 点超）の演出" />
 </div>
 
 <style>
-.capture-placeholder { height: 16rem; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--dt-border); border-radius: 12px; color: var(--dt-text-muted); }
+.capture { height: 16rem; width: 100%; object-fit: cover; border-radius: 12px; box-shadow: var(--dt-shadow-card); }
 </style>
 
 ---

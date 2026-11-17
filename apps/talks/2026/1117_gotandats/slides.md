@@ -417,14 +417,12 @@ questions: {
 </div>
 
 <div class="grid grid-cols-2 gap-6 mt-4">
-  <!-- TODO: ええ塩梅のキャプチャを public/aimai-anbai.png に置いて img に差し替える -->
-  <div class="capture-placeholder">ええ塩梅（80 点〜）のキャプチャ</div>
+  <img :src="$public('/aimai-anbai.webp')" class="capture" alt="ええ塩梅（80 点〜）の演出" />
   <img :src="$public('/aimai-jackpot.webp')" class="capture" alt="ちょうどええ！（90 点超）の演出" />
 </div>
 
 <style>
 .capture { height: 16rem; width: 100%; object-fit: cover; border-radius: 12px; box-shadow: var(--dt-shadow-card); }
-.capture-placeholder { height: 16rem; display: flex; align-items: center; justify-content: center; border: 2px dashed var(--dt-border); border-radius: 12px; color: var(--dt-text-muted); }
 </style>
 
 ---

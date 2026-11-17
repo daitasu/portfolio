@@ -115,7 +115,7 @@ layout: cover
 | `colorSchema: dark` ＋ `themeConfig.palette: navy` | ポートフォリオのダークモードと同じネイビー |
 | `colorSchema: dark`（palette なし） | 旧ダーク（黒地にオレンジ）。`2026/0612_tamadev` 用 |
 | `themeConfig.motif` なし | 上下に青い波 |
-| `themeConfig.motif: wind` | 上下に緑の風（流線と葉） |
+| `themeConfig.motif: wind` | 上下に緑の風（半透明の帯と数本の線）。白地では強調文字、見出し下線、コードカードも緑になり、リンクは水色のまま |
 
 ```yaml
 colorSchema: light

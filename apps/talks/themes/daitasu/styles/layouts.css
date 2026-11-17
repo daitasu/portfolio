@@ -345,6 +345,13 @@ html:is(.light, .dt-navy).dt-motif-wind {
   --dt-glow-strong: rgba(79, 168, 122, 0.14);
   --dt-glow-soft: rgba(79, 168, 122, 0.08);
 }
+/* 白×風は強調文字、見出し下線、コードカードも緑にそろえる（リンクは水色のまま）。文字の緑は白地で読める濃さにしている */
+html.light.dt-motif-wind {
+  --dt-accent: #2e8b57;
+  --dt-surface: #f4faf5;
+  --dt-accent-soft: rgba(79, 168, 122, 0.14);
+  --dt-shadow-card: 0 16px 36px -22px rgba(30, 96, 64, 0.32), 0 2px 6px -3px rgba(15, 42, 23, 0.06);
+}
 html:is(.light, .dt-navy).dt-motif-wind .slidev-layout::before {
   background-position: center bottom, center top;
   background-size: 100% auto, 100% auto;

@@ -34,6 +34,7 @@ const imageUrl = new URL(image, Astro.site).href;
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.png" />
     <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`Talks | ${SITE_NAME}`} href="/talks/rss.xml" />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
